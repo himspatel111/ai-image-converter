@@ -1,42 +1,62 @@
-document.getElementById('imageUpload').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.getElementById('imageCanvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-            };
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-});
+body {
+    background-color: #0a0a0a;
+    color: #00ff00;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
-document.getElementById('convertBtn').addEventListener('click', function() {
-    const canvas = document.getElementById('imageCanvas');
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
+.container {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+}
 
-    // Example: Convert image to grayscale
-    for (let i = 0; i < data.length; i += 4) {
-        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = avg; // red
-        data[i + 1] = avg; // green
-        data[i + 2] = avg; // blue
-    }
+.neon-text {
+    font-size: 3rem;
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00;
+}
 
-    ctx.putImageData(imageData, 0, 0);
+.neon-input {
+    margin: 20px 0;
+    padding: 10px;
+    border: 2px solid #00ff00;
+    background-color: transparent;
+    color: #00ff00;
+    font-size: 1rem;
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+}
 
-    // Save the processed image (optional)
-    const processedImage = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.href = processedImage;
-    link.download = 'processed-image.png';
-    link.click();
-});
+.canvas-container {
+    max-width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.neon-canvas {
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+    max-width: 100%;
+    height: auto;
+}
+
+.neon-button {
+    padding: 10px 20px;
+    border: 2px solid #00ff00;
+    background-color: transparent;
+    color: #00ff00;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.neon-button:hover {
+    background-color: #00ff00;
+    color: #0a0a0a;
+}
