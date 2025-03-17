@@ -33,5 +33,10 @@ document.getElementById('convertBtn').addEventListener('click', function() {
 
     ctx.putImageData(imageData, 0, 0);
 
-    // You can add more advanced AI-based image processing here
+    // Save the processed image (optional)
+    const processedImage = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = processedImage;
+    link.download = 'processed-image.png';
+    link.click();
 });
